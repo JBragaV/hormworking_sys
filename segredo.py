@@ -1,0 +1,2 @@
+def segredos() -> str:
+    return ""

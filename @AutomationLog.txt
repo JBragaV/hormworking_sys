@@ -1,0 +1,2 @@
+2026-07-03 18:13:47.503 main.py[248] <module> -> Find Control Timeout(10s): {Name: 'Outlook', ControlType: WindowControl}
+2026-07-03 18:59:14.032 main.py[248] <module> -> Find Control Timeout(10s): {Name: 'Outlook', ControlType: WindowControl}
