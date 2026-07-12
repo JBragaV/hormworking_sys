@@ -1,7 +1,7 @@
 import ctypes
 import os
 import tkinter as tk
-from tkinter import ttk
+from tkinter import PhotoImage, ttk
 
 from pomodoro_enum import EstadoPomodoro
 from segredo import segredos
@@ -10,14 +10,15 @@ from segredo import segredos
 class PomodoroTimer:
     def __init__(self, root) -> None:
         self.root: tk.Tk = root
-        self.notebook = ttk.Notebook(self.root)
-        self.tab_pomodoro = ttk.Frame(self.notebook)
-        self.tab_long = ttk.Frame(self.notebook)
-        self.tab_short = ttk.Frame(self.notebook)
+        self.root.iconbitmap("Python-Logo-PNG-Picture.ico")
 
-        self.notebook.add(self.tab_pomodoro, text="Pomodoro")
-        self.notebook.add(self.tab_long, text="Intevalo longo")
-        self.notebook.add(self.tab_short, text="Intervalo curto")
+        self.root.iconphoto(True, PhotoImage(file="pomodoro_image.png"))  # Aceita PNG
+
+        self.notebook = ttk.Notebook(self.root)
+
+        self.__novo_aba("Pomodoro")
+        self.__novo_aba("Intevalo longo")
+        self.__novo_aba("Intervalo curto")
 
         self.notebook.pack(fill="x")
 
@@ -112,6 +113,10 @@ class PomodoroTimer:
         self.__barra_de_menu_arquivo()
         self.__barra_de_menu_sair()
         self.root.config(menu=self.barra_menu)
+
+    def __novo_aba(self, texto) -> None:
+        tab = ttk.Frame(self.notebook)
+        self.notebook.add(tab, text=texto)
 
     def __barra_de_menu_arquivo(self) -> None:
 
