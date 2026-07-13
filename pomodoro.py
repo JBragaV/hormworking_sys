@@ -13,16 +13,12 @@ class PomodoroTimer:
         self.root.iconbitmap("Python-Logo-PNG-Picture.ico")
 
         self.root.iconphoto(True, PhotoImage(file="pomodoro_image.png"))  # Aceita PNG
-
         self.notebook = ttk.Notebook(self.root)
+        self.__novo_aba(self.notebook, 'Pomodoro')
+        self.__novo_aba(self.notebook, 'E-mails')
 
-        self.__novo_aba("Pomodoro")
-        self.__novo_aba("Intevalo longo")
-        self.__novo_aba("Intervalo curto")
+        self.__pomodoro_tab()
 
-        self.notebook.pack(fill="x")
-
-        self.notebook.bind("<<NotebookTabChanged>>", self.trocar_tempo)
         self.root.bind("<Button-1>", self.teste)
         self.root.bind("<Button-2>", self.teste)
         self.root.bind("<Button-3>", self.teste)
@@ -72,7 +68,9 @@ class PomodoroTimer:
         return tempo * 60
 
     def trocar_tempo(self, event) -> None:
-        indice = self.notebook.index(self.notebook.select())
+        notebook = event.widget
+
+        indice = notebook.index(notebook.select())
 
         print(event)
 
@@ -114,9 +112,19 @@ class PomodoroTimer:
         self.__barra_de_menu_sair()
         self.root.config(menu=self.barra_menu)
 
-    def __novo_aba(self, texto) -> None:
-        tab = ttk.Frame(self.notebook)
-        self.notebook.add(tab, text=texto)
+    def __novo_aba(self, notebook, texto) -> None:
+        tab = ttk.Frame(notebook)
+        notebook.add(tab, text=texto)
+
+    def __pomodoro_tab(self) -> None:
+        notebook_pomodoro = ttk.Notebook(self.notebook)
+        self.__novo_aba(notebook_pomodoro, "Pomodoro")
+        self.__novo_aba(notebook_pomodoro, "Intevalo longo")
+        self.__novo_aba(notebook_pomodoro, "Intervalo curto")
+
+        notebook_pomodoro.pack(fill="x")
+
+        notebook_pomodoro.bind("<<NotebookTabChanged>>", self.trocar_tempo)
 
     def __barra_de_menu_arquivo(self) -> None:
 
